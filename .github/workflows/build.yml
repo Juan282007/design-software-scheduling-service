@@ -25,4 +25,5 @@ jobs:
       # environment checks, not prerequisites for the R5 contract gate.
       - name: Build and unit test
         run: |
-          mvn -B -Dtest='**/*Test' -DfailIfNoTests=false clean test
+          mvn -B -Dtest='**/*Test' -DfailIfNoTests=false \
+            -Dsurefire.failIfNoSpecifiedTests=false clean test
