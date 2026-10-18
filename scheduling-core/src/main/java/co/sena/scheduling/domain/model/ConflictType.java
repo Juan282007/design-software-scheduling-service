@@ -1,0 +1,10 @@
+package co.sena.scheduling.domain.model;
+
+public enum ConflictType {
+    INSTRUCTOR_DOUBLE_BOOKED,
+    ENVIRONMENT_DOUBLE_BOOKED,
+    SESSIONS_OVERLAP,
+    ENVIRONMENT_MAINTENANCE,
+    INSTRUCTOR_UNAVAILABLE,
+    INSTRUCTOR_TRAVEL_CONFLICT
+}

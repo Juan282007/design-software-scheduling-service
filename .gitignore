@@ -1,0 +1,5 @@
+target/
+*.class
+.env
+*.log
+.project-memory/

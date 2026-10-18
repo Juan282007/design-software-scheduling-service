@@ -1,0 +1,23 @@
+# Build stage
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /src
+
+ARG OTEL_AGENT_VERSION=2.8.0
+RUN curl -fsSL -o /tmp/otel-agent.jar \
+    "https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v${OTEL_AGENT_VERSION}/opentelemetry-javaagent.jar"
+
+COPY . .
+RUN mvn -q -DskipTests package
+
+# Runtime stage
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+
+COPY --from=build /tmp/otel-agent.jar otel-agent.jar
+COPY --from=build /src/schedules-api/target/schedules-api-0.1.0.jar app.jar
+
+EXPOSE 8080
+
+# OTel auto-instrumentation via agent
+# Configure with OTEL_EXPORTER_OTLP_ENDPOINT
+ENTRYPOINT ["java", "-javaagent:/app/otel-agent.jar", "-jar", "/app/app.jar"]
