@@ -42,7 +42,7 @@ jobs:
       - name: Checkout design-software-scheduling-db
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/design-software-scheduling-db
+          repository: code-sena/design-software-scheduling-db
           # The service feature branch is not required to exist in the DB repo.
           # Use the shared develop schema branch for reproducible service PR checks.
           ref: develop
