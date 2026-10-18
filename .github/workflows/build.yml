@@ -1,0 +1,29 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [develop, 'feat/*', 'fix/*', 'hu-*']
+  pull_request:
+    branches: [develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      # Contract and unit checks must not require another private repository,
+      # PostgreSQL, RabbitMQ, or CROSS_REPO_TOKEN. Those integrations are
+      # environment checks, not prerequisites for the R5 contract gate.
+      - name: Build and unit test
+        run: |
+          mvn -B -Dtest='**/*Test' -DfailIfNoTests=false \
+            -Dsurefire.failIfNoSpecifiedTests=false clean test

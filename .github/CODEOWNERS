@@ -1,0 +1,7 @@
+# CODEOWNERS — design-software-scheduling-service
+#
+# Catch-all: arquitectos + QA + product manager.
+# Un PR requiere aprobación de al menos un code owner (ver ruleset del repo).
+# Granularidad por ruta se afinará cuando existan los teams de rol.
+
+*   @code-sena/design-software-develop @ariel5253 @Dannabarrios @Nicolasruiz918
