@@ -43,7 +43,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/design-software-scheduling-db
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+          # The service feature branch is not required to exist in the DB repo.
+          # Use the shared develop schema branch for reproducible service PR checks.
+          ref: develop
           token: ${{ secrets.CROSS_REPO_TOKEN }}
           path: design-software-scheduling-db
 
